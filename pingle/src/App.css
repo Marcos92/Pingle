@@ -1,6 +1,198 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  max-width: 300px;
+  margin: 10px auto;
+
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+
+  font-family: Jost, sans-serif;
+
+  --green-primary: hsl(95, 50%, 35%);
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+input {
+  all: unset;
+  caret-color: grey;
+}
+
+input::placeholder {
+  color: gray;
+  opacity: 1;
+  font-size: 15px;
+}
+
+input::-webkit-input-placeholder {
+  /* Chrome, Safari, Opera */
+  color: gray;
+}
+
+input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: gray;
+}
+
+input:-ms-input-placeholder {
+  /* IE 10+ */
+  color: gray;
+}
+
+input:-moz-placeholder {
+  /* Firefox 18- */
+  color: gray;
+}
+
+.main-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: flex-start;
+}
+
+.title {
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  flex-direction: column;
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.product-display {
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  flex-direction: column;
+  margin: 10px;
+  padding: 20px 20px 10px 20px;
+  border-radius: 10px;
+  background-color: var(--green-primary);
+  width: 300px;
+  height: 350px;
+}
+
+.product-image {
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80%;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background-color: white;
+  flex-shrink: 0;
+}
+
+.product-image img {
+  width: 85%;
+  height: 85%;
+  object-fit: contain;
+  display: block;
+}
+
+.product-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  overflow: hidden;
+  white-space: normal;
+  width: 100%;
+  flex-shrink: 1;
+}
+
+.product-name h1 {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 22px;
+}
+
+.game-info {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 20px;
+  margin: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.guess-container {
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  flex-direction: column;
+  width: 110%;
+}
+
+.guess-entry {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 5px;
+  height: 30px;
+  gap: 5px;
+}
+
+.guess-entry .price,
+.guess-entry .hint {
+  background-color: var(--green-primary);
+  text-align: center;
+  border-radius: 10px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.guess-entry .price {
+  width: calc(75% - 2.5px);
+}
+
+.guess-entry .hint {
+  width: calc(25% - 2.5px);
+  font-family: "VT323", monospace;
+  font-size: 20px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  width: 110%;
+  margin: 20px;
+  height: 40px;
+  gap: 5px;
+}
+
+.input-container .input-field,
+.input-container .input-button {
+  text-align: center;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.input-container .input-field {
+  width: calc(50% - 2.5px);
+  color: black;
+  background-color: white;
+  height: 100%;
+}
+
+.input-container .input-button {
+  width: calc(50% - 2.5px);
+  background-color: var(--green-primary);
+  height: 100%;
 }
