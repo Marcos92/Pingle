@@ -9,6 +9,7 @@
   font-family: Jost, sans-serif;
 
   --green-primary: hsl(95, 50%, 35%);
+  --green-dark: hsl(95, 50%, 20%);
 }
 
 button {
@@ -18,7 +19,7 @@ button {
 
 input {
   all: unset;
-  caret-color: grey;
+  caret-color: gray;
 }
 
 input::placeholder {
@@ -102,17 +103,16 @@ input:-moz-placeholder {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
   overflow: hidden;
-  white-space: normal;
-  width: 100%;
+  width: 105%;
   flex-shrink: 1;
 }
 
 .product-name h1 {
   font-size: 20px;
   font-weight: bold;
-  line-height: 22px;
+  line-height: 25px;
+  text-align: center;
 }
 
 .game-info {
@@ -121,7 +121,7 @@ input:-moz-placeholder {
   line-height: 20px;
   margin: 20px;
   text-align: center;
-  width: 100%;
+  width: 125%;
 }
 
 .guess-container {
@@ -132,7 +132,8 @@ input:-moz-placeholder {
   width: 110%;
 }
 
-.guess-entry {
+.guess-entry,
+.guess-entry-empty {
   display: flex;
   align-items: center;
   width: 100%;
@@ -154,6 +155,12 @@ input:-moz-placeholder {
   font-weight: bold;
 }
 
+.guess-entry-empty {
+  background-color: gray;
+  text-align: center;
+  border-radius: 10px;
+}
+
 .guess-entry .price {
   width: calc(75% - 2.5px);
 }
@@ -162,6 +169,18 @@ input:-moz-placeholder {
   width: calc(25% - 2.5px);
   font-family: "VT323", monospace;
   font-size: 20px;
+}
+
+.guess-entry .hint.win {
+  background-color: #218c29;
+}
+
+.guess-entry .hint.near {
+  background-color: #bfa900;
+}
+
+.guess-entry .hint.far {
+  background-color: #b22222;
 }
 
 .input-container {
@@ -185,14 +204,24 @@ input:-moz-placeholder {
 }
 
 .input-container .input-field {
-  width: calc(50% - 2.5px);
+  width: calc(60% - 2.5px);
   color: black;
   background-color: white;
   height: 100%;
 }
 
 .input-container .input-button {
-  width: calc(50% - 2.5px);
+  width: calc(40% - 2.5px);
   background-color: var(--green-primary);
   height: 100%;
+}
+
+.input-button {
+  box-shadow: inset 0 0 0 2.5px white;
+}
+
+.input-button:active {
+  box-shadow: inset 0 0 0 2.5px gray;
+  background-color: var(--green-dark);
+  color: gray;
 }
