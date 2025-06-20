@@ -1,22 +1,23 @@
+import { Guess } from "../guess";
+
 export interface GuessEntryProps {
-  guess: number;
-  closeness: "win" | "near" | "far" | undefined;
-  direction: -1 | 0 | 1 | undefined;
+  guess: Guess | undefined;
 }
 
-export default function GuessEntry({ guess, closeness, direction }: GuessEntryProps) {
-
-  console.log("GuessEntry rendered with:", { guess, closeness, direction });
-
+export default function GuessEntry({ guess }: GuessEntryProps) {
   return (
     <>
-      {(guess === undefined || closeness === undefined || direction === undefined) ? (
-      <div className="guess-entry-empty"></div>
+      {guess == null ? (
+        <div className="guess-entry-empty"></div>
       ) : (
-      <div className="guess-entry">
-        <div className="price">{guess.toFixed(2)}€</div>
-        <div className={`hint ${closeness}`}>{direction === 1 ? "↑" : direction === -1 ? "↓" : "✔"}</div>
-      </div>
+        <div className="guess-entry">
+          <div className="price">
+            {typeof guess?.price === "number" ? guess.price.toFixed(2) + "€" : "--"}
+          </div>
+          <div className={`hint ${guess?.closeness}`}>
+            {guess?.direction === 1 ? "↑" : guess?.direction === -1 ? "↓" : "✔"}
+          </div>
+        </div>
       )}
     </>
   );

@@ -4,6 +4,8 @@ import GuessContainer from "./components/GuessContainer";
 import InputBar from "./components/InputBar";
 import ProductDisplay from "./components/ProductDisplay";
 import GameInfo from "./components/GameInfo";
+import ShareButton from "./components/ShareButton";
+import { Guess } from "./guess";
 
 function App() {
   const [productName, setProductName] = useState<string>("");
@@ -78,67 +80,137 @@ function App() {
     });
   }
 
-  function checkGuess(guess: number) {
-    console.log("checkGuess called with:", guess);
-    const guessObj = { guess, closeness: "", direction: 0 };
-    const amountAway = Math.abs(productPrice - guess);
-    console.log("productPrice:", productPrice, "amountAway:", amountAway);
+  function checkGuess(value: number) {
+    const currentGuess: Guess = {
+      price: value,
+      closeness: "far",
+      direction: 0,
+    };
+    const amountAway = Math.abs(productPrice - value);
 
     let isWin = false;
 
+    //Player wins if guess is within 10 cents of the product price
     if (amountAway < 0.1) {
-      guessObj.closeness = "win";
-      guessObj.direction = 0;
+      currentGuess.closeness = "win";
+      currentGuess.direction = 0;
       isWin = true;
-      console.log("Guess is a WIN!");
-      gameWon();
     } else {
+      // Player is near if guess is within 1 euro of the product price
       if (amountAway < 1.0) {
-        guessObj.closeness = "near";
-        console.log("Guess is NEAR");
+        currentGuess.closeness = "near";
       } else {
-        guessObj.closeness = "far";
-        console.log("Guess is FAR");
+        currentGuess.closeness = "far";
       }
-      if (guess > productPrice) {
-        guessObj.direction = -1;
-      } else if (guess < productPrice) {
-        guessObj.direction = 1;
+
+      //Set direction based on whether guess is higher or lower than product price
+      if (value > productPrice) {
+        currentGuess.direction = -1;
+      } else if (value < productPrice) {
+        currentGuess.direction = 1;
       }
     }
 
     setGameState((prev: any) => {
-      const newGuesses = [...prev.guesses, { ...guessObj }];
+      const newGuesses = [...prev.guesses, { ...currentGuess }];
       let updatedState = {
         ...prev,
         guesses: newGuesses,
-        hasWon: isWin ? true : prev.hasWon,
+        hasWon: isWin,
       };
-      if (newGuesses.length === 6 && !isWin) {
-        console.log("Max guesses reached. Game lost.");
-        gameLost();
-      }
       setTimeout(() => {
         localStorage.setItem("state", JSON.stringify(updatedState));
       }, 0);
-      console.log("Updated gameState:", updatedState);
-      return { ...updatedState }; // ensure new object reference
+      return { ...updatedState };
     });
+
+    function gameWon() {
+      userStats.numWins++;
+      userStats.currentStreak++;
+      userStats.winsInNum[gameState.guesses.length - 1]++;
+      if (userStats.currentStreak > userStats.maxStreak) {
+        userStats.maxStreak = userStats.currentStreak;
+      }
+      gameState.hasWon = true;
+
+      localStorage.setItem("state", JSON.stringify(gameState));
+      localStorage.setItem("stats", JSON.stringify(userStats));
+    }
+
+    function gameLost() {
+      userStats.currentStreak = 0;
+
+      localStorage.setItem("stats", JSON.stringify(userStats));
+    }
   }
 
-  function gameWon() {
-    // Placeholder: implement win logic if needed
-    // For now, do nothing
-  }
+  function share() {
+    const date = new Date();
+    const formattedDate = date.toLocaleDateString("pt-PT", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    let output = `PINGLE - ${formattedDate}\n`;
+    output += gameState.hasWon ? ` ${gameState.guesses.length}/6\n` : ` X/6\n`;
 
-  function gameLost() {
-    // Placeholder: implement lose logic if needed
-    // For now, do nothing
+    (gameState.guesses as Guess[]).forEach((guess: Guess) => {
+      output +=
+        (guess.direction === 1 ? "⬆️" : guess.direction === -1 ? "⬇️" : "✅") +
+        (guess.closeness === "far"
+          ? "🟥"
+          : guess.closeness === "near"
+          ? "🟨"
+          : "") +
+        "\n";
+    });
+
+    const isMobile =
+      typeof navigator !== "undefined" &&
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
+
+    if (isMobile && typeof (navigator as any).canShare === "function") {
+      (navigator as any)
+        .share({
+          title: "PINGLE",
+          text: output,
+          url: "https://pingle.com",
+        })
+        .catch((error: any) => console.error("Share failed:", error));
+    } else {
+      output += `https://pingle.com`;
+      if (
+        navigator.clipboard &&
+        typeof navigator.clipboard.writeText === "function"
+      ) {
+        navigator.clipboard.writeText(output);
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = output;
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+          document.execCommand("copy");
+        } catch (err) {
+          console.error("Fallback: Copy command failed", err);
+        }
+        document.body.removeChild(textArea);
+      }
+    }
   }
 
   useEffect(() => {
     fetchGameData(gameIndex);
   }, [gameIndex]);
+
+  let showShareButton = false; //test only */
+  if (gameState.guesses.length === 6 || gameState.hasWon) {
+    showShareButton = true;
+  }
 
   return (
     <>
@@ -151,7 +223,11 @@ function App() {
           productPrice={productPrice}
         />
         <GuessContainer guesses={gameState.guesses} />
-        <InputBar checkGuess={checkGuess} />
+        {showShareButton ? (
+          <ShareButton share={share} />
+        ) : (
+          <InputBar checkGuess={checkGuess} />
+        )}
       </div>
     </>
   );

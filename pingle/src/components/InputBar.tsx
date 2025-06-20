@@ -51,21 +51,23 @@ export default function InputBar({ checkGuess }: InputBarProps) {
   }
 
   return (
-    <div className="input-container">
-      <input
-        ref={inputRef}
-        className="input-field"
-        type="text"
-        pattern="^\d{1,3}(\.\d+)?€$"
-        data-type="currency"
-        placeholder="Insira o seu palpite..."
-        onKeyDown={(e) => {
-          if (e.key === "Enter") handleInput();
-        }}
-      />
-      <button className="input-button" onClick={handleInput}>
-        Submeter
-      </button>
-    </div>
+    <>
+      <div className="input-container">
+        <input
+          ref={inputRef}
+          className="input-field"
+          type="text"
+          pattern="^\d{1,3}(\.\d+)?€$"
+          data-type="currency"
+          placeholder="Insira o seu palpite..."
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleInput();
+          }}
+        />
+        <button className="input-button" onClick={handleInput}>
+          Submeter
+        </button>
+      </div>
+    </>
   );
 }
