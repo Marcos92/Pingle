@@ -5,42 +5,76 @@ import InputBar from "./components/InputBar";
 import ProductDisplay from "./components/ProductDisplay";
 import GameInfo from "./components/GameInfo";
 import ShareButton from "./components/ShareButton";
-import { Guess } from "./guess";
+import type { Guess } from "./guess";
 
 function App() {
   const [productName, setProductName] = useState<string>("");
   const [productImage, setProductImage] = useState<string>("");
   const [productPrice, setProductPrice] = useState<number>(0);
 
-  const gameIndex = getGameIndex();
+  const gameIndex: number = getGameIndex();
 
-  const [userStats, setUserStats] = useState(
-    () =>
-      JSON.parse(localStorage.getItem("stats") ?? "null") ?? {
+  const [userStats, setUserStats] = useState(() => {
+    try {
+      return (
+        JSON.parse(localStorage.getItem("stats") ?? "null") ?? {
+          numGames: 0,
+          numWins: 0,
+          winsPerGuess: [0, 0, 0, 0, 0, 0],
+          currentStreak: 0,
+          maxStreak: 0,
+          gameIndex: -1,
+        }
+      );
+    } catch {
+      return {
         numGames: 0,
         numWins: 0,
         winsPerGuess: [0, 0, 0, 0, 0, 0],
         currentStreak: 0,
         maxStreak: 0,
-      }
-  );
+        gameIndex: -1,
+      };
+    }
+  });
 
-  const [gameState, setGameState] = useState(
-    () =>
-      JSON.parse(localStorage.getItem("state") ?? "null") ?? {
+  useEffect(() => {
+    localStorage.setItem("stats", JSON.stringify(userStats));
+  }, [userStats]);
+
+  function updateUserStats(updatedStats: typeof userStats) {
+    setUserStats(updatedStats);
+  }
+
+  const [gameState, setGameState] = useState(() => {
+    try {
+      return (
+        JSON.parse(localStorage.getItem("state") ?? "null") ?? {
+          gameIndex: -1,
+          guesses: [],
+          hasWon: false,
+        }
+      );
+    } catch {
+      return {
         gameIndex: -1,
         guesses: [],
         hasWon: false,
-      }
-  );
+      };
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem("state", JSON.stringify(gameState));
+  }, [gameState]);
+
+  function updateGameState(updatedState: typeof gameState) {
+    setGameState(updatedState);
+  }
 
   function getGameIndex() {
     const currDate = new Date();
-    let dayCountSinceEpoch = Math.floor(
-      currDate.getTime() / (1000 * 3600 * 24)
-    );
-    let index = Math.abs(Math.round(dayCountSinceEpoch));
-    return index;
+    return Math.floor(currDate.getTime() / (1000 * 3600 * 24));
   }
 
   function fetchGameData(gameIndex: number) {
@@ -56,28 +90,21 @@ function App() {
   }
 
   function initializeGame(index: number) {
-    setGameState((prevGameState: any) => {
-      if (prevGameState.gameIndex !== index) {
-        setUserStats((prevUserStats: any) => {
-          const updatedStats = { ...prevUserStats };
-          if (prevGameState.hasWon === false) {
-            updatedStats.currentStreak = 0;
-          }
-          updatedStats.numGames++;
-          localStorage.setItem("stats", JSON.stringify(updatedStats));
-          return updatedStats;
-        });
+    if (userStats.gameIndex !== index) {
+      const updatedStats = {
+        ...userStats,
+        gameIndex: index,
+        numGames: (userStats.numGames ?? 0) + 1,
+      };
+      updateUserStats(updatedStats);
 
-        const newGameState = {
-          gameIndex: index,
-          guesses: [],
-          hasWon: false,
-        };
-        localStorage.setItem("state", JSON.stringify(newGameState));
-        return newGameState;
-      }
-      return prevGameState;
-    });
+      const newGameState = {
+        gameIndex: index,
+        guesses: [],
+        hasWon: false,
+      };
+      updateGameState(newGameState);
+    }
   }
 
   function checkGuess(value: number) {
@@ -86,11 +113,11 @@ function App() {
       closeness: "far",
       direction: 0,
     };
-    const amountAway = Math.abs(productPrice - value);
 
     let isWin = false;
+    const amountAway = Math.abs(productPrice - value);
 
-    //Player wins if guess is within 10 cents of the product price
+    // Player wins if guess is within 10 cents of the product price
     if (amountAway < 0.1) {
       currentGuess.closeness = "win";
       currentGuess.direction = 0;
@@ -103,7 +130,7 @@ function App() {
         currentGuess.closeness = "far";
       }
 
-      //Set direction based on whether guess is higher or lower than product price
+      // Set direction based on whether guess is higher or lower than product price
       if (value > productPrice) {
         currentGuess.direction = -1;
       } else if (value < productPrice) {
@@ -111,37 +138,37 @@ function App() {
       }
     }
 
-    setGameState((prev: any) => {
-      const newGuesses = [...prev.guesses, { ...currentGuess }];
-      let updatedState = {
-        ...prev,
-        guesses: newGuesses,
-        hasWon: isWin,
-      };
-      setTimeout(() => {
-        localStorage.setItem("state", JSON.stringify(updatedState));
-      }, 0);
-      return { ...updatedState };
-    });
+    const newGuesses = [...gameState.guesses, { ...currentGuess }];
+    const updatedState = {
+      ...gameState,
+      guesses: newGuesses,
+      hasWon: isWin,
+    };
+    updateGameState(updatedState);
 
-    function gameWon() {
-      userStats.numWins++;
-      userStats.currentStreak++;
-      userStats.winsInNum[gameState.guesses.length - 1]++;
-      if (userStats.currentStreak > userStats.maxStreak) {
-        userStats.maxStreak = userStats.currentStreak;
-      }
-      gameState.hasWon = true;
+    console.log(updatedState);
 
-      localStorage.setItem("state", JSON.stringify(gameState));
-      localStorage.setItem("stats", JSON.stringify(userStats));
+    if (isWin) {
+      onWin(newGuesses.length);
+    } else if (gameState.guesses.length === 6 && !isWin) {
+      onLose();
     }
+  }
 
-    function gameLost() {
-      userStats.currentStreak = 0;
-
-      localStorage.setItem("stats", JSON.stringify(userStats));
+  function onWin(guessCount: number) {
+    const updatedStats = { ...userStats };
+    updatedStats.numWins++;
+    updatedStats.currentStreak++;
+    updatedStats.winsPerGuess[guessCount - 1]++;
+    if (updatedStats.currentStreak > updatedStats.maxStreak) {
+      updatedStats.maxStreak = updatedStats.currentStreak;
     }
+    updateUserStats(updatedStats);
+  }
+
+  function onLose() {
+    const updatedStats = { ...userStats, currentStreak: 0 };
+    updateUserStats(updatedStats);
   }
 
   function share() {
@@ -207,7 +234,7 @@ function App() {
     fetchGameData(gameIndex);
   }, [gameIndex]);
 
-  let showShareButton = false; //test only */
+  let showShareButton = false;
   if (gameState.guesses.length === 6 || gameState.hasWon) {
     showShareButton = true;
   }
