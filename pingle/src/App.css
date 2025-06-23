@@ -47,6 +47,10 @@ input:-moz-placeholder {
   color: var(--gray-primary);
 }
 
+.break {
+  border-bottom: white 1px solid;
+}
+
 .main-container {
   display: flex;
   flex-direction: column;
@@ -162,7 +166,6 @@ input:-moz-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
   font-weight: bold;
   height: 100%;
 }
@@ -176,21 +179,21 @@ input:-moz-placeholder {
   width: 75%;
 }
 
-.guess-entry .hint {
+.hint {
   width: 25%;
   font-family: "M PLUS Rounded 1c", sans-serif;
   font-size: 22px;
 }
 
-.guess-entry .hint.win {
+.hint.win {
   background-color: #218c29;
 }
 
-.guess-entry .hint.near {
+.hint.near {
   background-color: #bfa900;
 }
 
-.guess-entry .hint.far {
+.hint.far {
   background-color: #b22222;
 }
 
@@ -254,6 +257,32 @@ input:-moz-placeholder {
 
 .share-button i {
   margin-left: 10px;
+}
+
+.help p {
+  font-size: 18px;
+  line-height: 20px;
+  margin: 8px 0;
+  text-align: center;
+}
+
+.help .hint-container {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+  height: 10%;
+  margin: 10px 0;
+}
+
+.help .hint {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  line-height: 20px;
+  text-align: center;
+  height: 100%;
 }
 
 .footer {
