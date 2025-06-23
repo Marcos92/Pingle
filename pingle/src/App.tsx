@@ -272,7 +272,15 @@ function App() {
           </div>
         )}
         {showHelp && <HelpPage />}
-        {showStats && <StatsPage />}
+        {showStats && (
+          <StatsPage
+            numGames={userStats.numGames}
+            numWins={userStats.numWins}
+            winsPerGuess={userStats.winsPerGuess}
+            currentStreak={userStats.currentStreak}
+            maxStreak={userStats.maxStreak}
+          />
+        )}
         <Footer openHelp={toggleHelp} openStats={toggleStats} />
       </div>
     </>

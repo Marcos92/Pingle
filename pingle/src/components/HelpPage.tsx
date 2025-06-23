@@ -8,7 +8,7 @@ export default function HelpPage() {
       <br />
       <p>
         A seta para cima indica que o preço certo é maior que a tua sugestão. Se
-        estiver para baixo quer dizer que é menor.
+        estiver para baixo, quer dizer que é menor.
       </p>
       <p>
         Se a ajuda estiver a vermelho quer dizer que estás a mais de um euro do
@@ -19,7 +19,7 @@ export default function HelpPage() {
         <div className="hint far">↑</div> <div className="hint near">↓</div>
       </div>
       <p>
-        Se a tua sugestão estiver a menos de 10 cêntimos do preço certo ganhas o
+        Se a tua sugestão estiver a menos de 10 cêntimos do preço certo, ganhas o
         jogo!
       </p>
 
