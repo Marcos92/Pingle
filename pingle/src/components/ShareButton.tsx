@@ -26,9 +26,9 @@ export default function ShareButton({ share }: ShareButtonProps) {
       <button className="share-button" onClick={handleInput}>
         Partilhar<i className="fa fa-share-nodes"></i>
       </button>
-      <div id="share-toast" className="toast hide">
+      {/* <div id="share-toast" className="toast hide">
         Partilhado com sucesso!
-      </div>
+      </div> */}
     </>
   );
 }

@@ -6,13 +6,14 @@ import ProductDisplay from "./components/ProductDisplay";
 import GameInfo from "./components/GameInfo";
 import ShareButton from "./components/ShareButton";
 import type { Guess } from "./guess";
+import Footer from "./components/Footer";
+import HelpPage from "./components/HelpPage";
+import StatsPage from "./components/StatsPage";
 
 function App() {
   const [productName, setProductName] = useState<string>("");
   const [productImage, setProductImage] = useState<string>("");
   const [productPrice, setProductPrice] = useState<number>(0);
-
-  const gameIndex: number = getGameIndex();
 
   const [userStats, setUserStats] = useState(() => {
     try {
@@ -74,8 +75,10 @@ function App() {
 
   function getGameIndex() {
     const currDate = new Date();
-    return Math.floor(currDate.getTime() / (1000 * 3600 * 24));
+    const index = Math.floor(currDate.getTime() / (1000 * 3600 * 24));
+    return index;
   }
+  const gameIndex: number = getGameIndex();
 
   function fetchGameData(gameIndex: number) {
     fetch("/products.json")
@@ -146,11 +149,9 @@ function App() {
     };
     updateGameState(updatedState);
 
-    console.log(updatedState);
-
     if (isWin) {
       onWin(newGuesses.length);
-    } else if (gameState.guesses.length === 6 && !isWin) {
+    } else if (newGuesses.length >= 6 && !isWin) {
       onLose();
     }
   }
@@ -230,31 +231,49 @@ function App() {
     }
   }
 
+  type GameState = "game" | "help" | "stats";
+  const [view, setView] = useState<GameState>("game");
+
+  const showGame = view === "game";
+  const showHelp = view === "help";
+  const showStats = view === "stats";
+
+  function toggleHelp(): void {
+    setView((prev) => (prev === "help" ? "game" : "help"));
+  }
+  function toggleStats(): void {
+    setView((prev) => (prev === "stats" ? "game" : "stats"));
+  }
+
+  let showShareButton = gameState.guesses.length === 6 || gameState.hasWon;
+
   useEffect(() => {
     fetchGameData(gameIndex);
   }, [gameIndex]);
-
-  let showShareButton = false;
-  if (gameState.guesses.length === 6 || gameState.hasWon) {
-    showShareButton = true;
-  }
 
   return (
     <>
       <div className="main-container">
         <div className="title">PINGLE</div>
-        <ProductDisplay name={productName} image={productImage} />
-        <GameInfo
-          hasWon={gameState.hasWon}
-          guessNumber={gameState.guesses.length}
-          productPrice={productPrice}
-        />
-        <GuessContainer guesses={gameState.guesses} />
-        {showShareButton ? (
-          <ShareButton share={share} />
-        ) : (
-          <InputBar checkGuess={checkGuess} />
+        {showGame && (
+          <div className="game">
+            <ProductDisplay name={productName} image={productImage} />
+            <GameInfo
+              hasWon={gameState.hasWon}
+              guessNumber={gameState.guesses.length}
+              productPrice={productPrice}
+            />
+            <GuessContainer guesses={gameState.guesses} />
+            {showShareButton ? (
+              <ShareButton share={share} />
+            ) : (
+              <InputBar checkGuess={checkGuess} />
+            )}
+          </div>
         )}
+        {showHelp && <HelpPage />}
+        {showStats && <StatsPage />}
+        <Footer openHelp={toggleHelp} openStats={toggleStats} />
       </div>
     </>
   );

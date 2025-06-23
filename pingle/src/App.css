@@ -1,12 +1,22 @@
-#root {
-  max-width: 300px;
-  margin: 10px auto;
-
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
-
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
   font-family: Jost, sans-serif;
+}
+
+#root {
+  height: 100vh;
+  max-width: 325px;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
   --green-primary: hsl(95, 50%, 35%);
   --green-dark: hsl(95, 50%, 20%);
@@ -30,55 +40,50 @@ input::placeholder {
   font-size: 15px;
 }
 
-input::-webkit-input-placeholder {
-  /* Chrome, Safari, Opera */
-  color: var(--gray-primary);
-}
-
-input::-moz-placeholder {
-  /* Firefox 19+ */
-  color: var(--gray-primary);
-}
-
-input:-ms-input-placeholder {
-  /* IE 10+ */
-  color: var(--gray-primary);
-}
-
+input::-webkit-input-placeholder,
+input::-moz-placeholder,
+input:-ms-input-placeholder,
 input:-moz-placeholder {
-  /* Firefox 18- */
   color: var(--gray-primary);
 }
 
 .main-container {
-  position: relative;
   display: flex;
-  align-items: center;
   flex-direction: column;
-  flex-grow: 1;
-  justify-content: flex-start;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .title {
-  display: flex;
-  overflow: hidden;
-  align-items: center;
-  flex-direction: column;
+  text-align: center;
   font-size: 50px;
   font-weight: bold;
+  margin: 10px 0;
+}
+
+.game,
+.help,
+.stats {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
 }
 
 .product-display {
+  flex: none;
   display: flex;
-  overflow: hidden;
-  align-items: center;
   flex-direction: column;
-  margin: 10px;
-  padding: 20px 20px 10px 20px;
-  border-radius: 10px;
+  align-items: center;
   background-color: var(--green-primary);
-  width: 300px;
-  height: 350px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  height: 45%;
 }
 
 .product-image {
@@ -118,20 +123,26 @@ input:-moz-placeholder {
 }
 
 .game-info {
+  display: flex;
+  flex-direction: column;
   font-size: 20px;
   font-weight: bold;
   line-height: 20px;
-  margin: 20px;
   text-align: center;
-  width: 125%;
+  width: 100%;
+  height: 5%;
+  margin-top: 15px;
 }
 
 .guess-container {
+  flex: none;
+  overflow-y: auto;
   display: flex;
-  overflow: hidden;
-  align-items: center;
   flex-direction: column;
-  width: 110%;
+  align-items: center;
+  width: 100%;
+  height: 35%;
+  padding: 5px 0;
 }
 
 .guess-entry,
@@ -139,36 +150,34 @@ input:-moz-placeholder {
   display: flex;
   align-items: center;
   width: 100%;
-  margin: 5px;
-  height: 30px;
+  height: 100%;
+  margin: 3px 0;
   gap: 5px;
 }
 
 .guess-entry .price,
 .guess-entry .hint {
   background-color: var(--green-primary);
-  text-align: center;
   border-radius: 10px;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 15px;
   font-weight: bold;
+  height: 100%;
 }
 
 .guess-entry-empty {
   background-color: var(--gray-primary);
-  text-align: center;
   border-radius: 10px;
 }
 
 .guess-entry .price {
-  width: calc(75% - 2.5px);
+  width: 75%;
 }
 
 .guess-entry .hint {
-  width: calc(25% - 2.5px);
+  width: 25%;
   font-family: "M PLUS Rounded 1c", sans-serif;
   font-size: 22px;
 }
@@ -188,49 +197,55 @@ input:-moz-placeholder {
 .input-container {
   display: flex;
   align-items: center;
-  width: 110%;
-  margin: 10px;
-  height: 40px;
+  width: 100%;
+  height: 5%;
   gap: 5px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  margin-top: 5px;
 }
 
-.input-container .input-field,
-.input-container .input-button {
+.input-field,
+.input-button {
   display: flex;
   align-items: center;
-  text-align: center;
   justify-content: center;
+  text-align: center;
   border-radius: 10px;
   font-size: 15px;
   font-weight: bold;
+  height: 100%;
 }
 
-.input-container .input-field {
-  width: calc(60% - 2.5px);
-  color: var(--black-primary);
+.input-field {
+  width: 60%;
   background-color: white;
-  height: 100%;
-}
-
-.input-container .input-button {
-  width: calc(40% - 2.5px);
-  background-color: var(--green-primary);
-  height: 100%;
+  color: var(--black-primary);
 }
 
 .input-button {
+  width: 40%;
+  background-color: var(--green-primary);
+  color: white;
   box-shadow: inset 0 0 0 2.5px white;
+}
+
+.input-button:active,
+.share-button:active {
+  box-shadow: inset 0 0 0 2.5px var(--gray-primary);
+  background-color: var(--green-dark);
+  color: var(--gray-primary);
 }
 
 .share-button {
   display: flex;
   align-items: center;
-  text-align: center;
   justify-content: center;
   background-color: var(--green-primary);
-  width: 110%;
+  color: white;
+  width: 100%;
   height: 40px;
-  margin: 10px;
+  margin: 5px 10px;
   border-radius: 10px;
   font-size: 18px;
   font-weight: bold;
@@ -241,9 +256,26 @@ input:-moz-placeholder {
   margin-left: 10px;
 }
 
-.input-button:active,
-.share-button:active {
-  box-shadow: inset 0 0 0 2.5px var(--gray-primary);
-  background-color: var(--green-dark);
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  font-size: 10px;
   color: var(--gray-primary);
+}
+
+.footer .button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 25px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.footer .credits {
+  text-align: center;
+  line-height: 10px;
+  margin-bottom: 10px;
 }
