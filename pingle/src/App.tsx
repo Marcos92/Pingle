@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import GamePage from "./components/pages/GamePage";
-import Footer from "./components/Footer";
+import BottomBar from "./components/BottomBar";
 import HelpPage from "./components/pages/HelpPage";
 import StatsPage from "./components/pages/StatsPage";
 import type { Product } from "./types/product";
@@ -103,8 +103,8 @@ function App() {
         }}
       >
         {page}
+        <BottomBar openHelp={toggleHelp} openStats={toggleStats} />
       </div>
-      <Footer openHelp={toggleHelp} openStats={toggleStats} />
     </div>
   );
 }

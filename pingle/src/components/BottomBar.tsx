@@ -1,11 +1,11 @@
-export interface FooterProps {
-    openHelp: () => void;
-    openStats: () => void;
+export interface BottomBarProps {
+  openHelp: () => void;
+  openStats: () => void;
 }
 
-export default function Footer({ openHelp, openStats }: FooterProps) {
+export default function BottomBar({ openHelp, openStats }: BottomBarProps) {
   return (
-    <div className="footer">
+    <div className="bottom-bar">
       <div className="button-container">
         <button className="help-button" onClick={openHelp}>
           <i className="fa-solid fa-question"></i>
