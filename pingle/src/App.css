@@ -233,7 +233,7 @@ input:-moz-placeholder {
   width: 75%;
 }
 
-.guess-entry .hint {
+.hint {
   width: 25%;
 }
 
@@ -259,16 +259,16 @@ input:-moz-placeholder {
   background-color: #2070df;
 }
 
-.input-container {
+.input-container,
+.share-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 95%;
   height: 10%;
   gap: 5px;
-  padding: 0 10px;
   box-sizing: border-box;
-  margin-top: 5px;
+  margin: 5px auto 0 auto;
 }
 
 .input-field,
@@ -298,19 +298,12 @@ input:-moz-placeholder {
 
 .input-button:active,
 .share-button:active {
-  box-shadow: inset 0 0 0 2.5px var(--gray-primary);
-  background-color: var(--green-dark);
-  color: var(--gray-primary);
+  transform: scale(0.95);
 }
 
 .share-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: var(--green-primary);
   color: white;
-  height: 20%;
-  margin: 5px 10px;
   border-radius: 10px;
   font-size: 18px;
   font-weight: bold;
