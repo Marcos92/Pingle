@@ -221,7 +221,6 @@ input:-moz-placeholder {
   line-height: 1.2;
   overflow: hidden;
   white-space: nowrap;
-  font-size: 16px;
 }
 
 .guess-entry-empty {
@@ -231,15 +230,13 @@ input:-moz-placeholder {
 
 .guess-entry .price {
   width: 75%;
+  font-size: 2vh;
 }
 
 .hint {
   width: 25%;
-}
-
-.hint {
   font-family: "M PLUS Rounded 1c", sans-serif;
-  font-size: 22px;
+  font-size: 2.5vh;
 }
 
 .hint.win,
@@ -374,7 +371,7 @@ input:-moz-placeholder {
 
   border-radius: 10px;
   background-color: var(--green-primary);
-  width:80%;
+  width: 80%;
   height: 14%;
   margin: 0.5vh;
 
