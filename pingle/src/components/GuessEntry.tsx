@@ -6,12 +6,15 @@ export interface GuessEntryProps {
 }
 
 export default function GuessEntry({ guess }: GuessEntryProps) {
-  const [displayedGuess, setDisplayedGuess] = useState<Guess | undefined>(undefined);
+  const [displayedGuess, setDisplayedGuess] = useState<Guess | undefined>(
+    undefined
+  );
   const [fade, setFade] = useState(false);
-  const prevGuess = useRef<Guess | undefined>(undefined);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    if (prevGuess.current == null && guess != null) {
+    if (guess != null && !hasAnimated.current) {
+      hasAnimated.current = true;
       setFade(true);
       const timeout = setTimeout(() => {
         setDisplayedGuess(guess);
@@ -21,7 +24,6 @@ export default function GuessEntry({ guess }: GuessEntryProps) {
     }
     setDisplayedGuess(guess);
     setFade(false);
-    prevGuess.current = guess;
   }, [guess]);
 
   const isEmpty = displayedGuess == null;
