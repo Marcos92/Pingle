@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import ProductDisplay from "../ProductDisplay";
 import GameInfo from "../GameInfo";
 import GuessContainer from "../GuessContainer";

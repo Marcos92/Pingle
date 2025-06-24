@@ -160,11 +160,11 @@ export function share(
       .share({
         title: "PINGLE",
         text: output,
-        url: "https://pingle.com",
+        url: "https://pingle.pt",
       })
       .catch((error: any) => console.error("Share failed:", error));
   } else {
-    output += `https://pingle.com`;
+    output += `https://pingle.pt`;
     if (
       navigator.clipboard &&
       typeof navigator.clipboard.writeText === "function"
