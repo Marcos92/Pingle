@@ -1,3 +1,4 @@
+import React, { useState, useRef } from "react";
 import ProductDisplay from "../ProductDisplay";
 import GameInfo from "../GameInfo";
 import GuessContainer from "../GuessContainer";
@@ -10,7 +11,7 @@ interface GamePageProps {
   product: Product;
   gameState: GameState;
   handleShare: () => void;
-  handleCheckGuess: (value: number) => void;
+  handleCheckGuess: (value: number) => boolean; // Now returns true/false
 }
 
 export default function GamePage({
@@ -19,10 +20,26 @@ export default function GamePage({
   handleShare,
   handleCheckGuess,
 }: GamePageProps) {
+  const [shake, setShake] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function onCheckGuess(value: number) {
+    const isCorrect = handleCheckGuess(value);
+    if (!isCorrect) {
+      setShake(true);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => setShake(false), 400);
+    }
+  }
+
   let showShareButton = gameState.guesses.length === 6 || gameState.hasWon;
   return (
     <div className="game">
-      <ProductDisplay name={product.name} image={product.image} />
+      <ProductDisplay
+        name={product.name}
+        image={product.image}
+        className={shake ? "shake" : ""}
+      />
       <GameInfo
         hasWon={gameState.hasWon}
         guessNumber={gameState.guesses.length}
@@ -32,7 +49,7 @@ export default function GamePage({
       {showShareButton ? (
         <ShareButton share={handleShare} />
       ) : (
-        <InputBar checkGuess={handleCheckGuess} />
+        <InputBar checkGuess={onCheckGuess} />
       )}
     </div>
   );

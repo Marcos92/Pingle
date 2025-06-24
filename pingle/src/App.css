@@ -24,6 +24,50 @@ body {
   --gray-primary: hsl(0, 0%, 40%);
 }
 
+.page-fade {
+  opacity: 1;
+  transition: opacity 0.25s;
+}
+
+.page-fade-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.guess-fade {
+  opacity: 1;
+  transition: opacity 0.25s;
+}
+.guess-fade-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-5px);
+  }
+  40% {
+    transform: translateX(5px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shake {
+  animation: shake 0.25s;
+}
+
 button {
   all: unset;
   cursor: pointer;
@@ -202,7 +246,7 @@ input:-moz-placeholder {
   display: flex;
   align-items: center;
   width: 100%;
-  height: 5%;
+  height: 7.5%;
   gap: 5px;
   padding: 0 10px;
   box-sizing: border-box;
@@ -383,7 +427,7 @@ input:-moz-placeholder {
   margin-bottom: 10px;
 }
 
-.footer button:hover{
+.footer button:hover {
   transform: scale(1.25);
   transition: transform 0.2s;
 }

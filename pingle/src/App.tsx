@@ -38,8 +38,8 @@ function App() {
     );
   }, [gameIndex]);
 
-  function handleCheckGuess(value: number) {
-    checkGuess(
+  function handleCheckGuess(value: number): boolean {
+    return checkGuess(
       value,
       product,
       gameState,
@@ -53,23 +53,58 @@ function App() {
     share(gameState, navigator);
   }
 
+  const [fade, setFade] = useState(false);
+  const [currentPage, setCurrentPage] = useState<"game" | "help" | "stats">(
+    "game"
+  );
+
+  useEffect(() => {
+    let nextPage: "game" | "help" | "stats" = "game";
+    if (showHelp) nextPage = "help";
+    else if (showStats) nextPage = "stats";
+    else if (showGame) nextPage = "game";
+
+    if (nextPage !== currentPage) {
+      setFade(true);
+      setTimeout(() => {
+        setCurrentPage(nextPage);
+        setFade(false);
+      }, 250);
+    }
+  }, [showGame, showHelp, showStats]);
+
+  let page = null;
+  if (currentPage === "game") {
+    page = (
+      <GamePage
+        product={product}
+        gameState={gameState}
+        handleShare={handleShare}
+        handleCheckGuess={handleCheckGuess}
+      />
+    );
+  } else if (currentPage === "help") {
+    page = <HelpPage />;
+  } else if (currentPage === "stats") {
+    page = <StatsPage userStats={userStats} />;
+  }
+
   return (
-    <>
-      <div className="main-container">
-        <div className="title">PINGLE</div>
-        {showGame && (
-          <GamePage
-            product={product}
-            gameState={gameState}
-            handleShare={handleShare}
-            handleCheckGuess={handleCheckGuess}
-          />
-        )}
-        {showHelp && <HelpPage />}
-        {showStats && <StatsPage userStats={userStats} />}
-        <Footer openHelp={toggleHelp} openStats={toggleStats} />
+    <div className="main-container">
+      <div className="title">PINGLE</div>
+      <div
+        className={`page-fade${fade ? " page-fade-hidden" : ""}`}
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          minHeight: 0,
+        }}
+      >
+        {page}
       </div>
-    </>
+      <Footer openHelp={toggleHelp} openStats={toggleStats} />
+    </div>
   );
 }
 

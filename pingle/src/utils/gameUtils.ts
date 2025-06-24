@@ -94,9 +94,11 @@ export function checkGuess(
 
   if (isWin) {
     onWin(newGuesses.length);
+    return true;
   } else if (newGuesses.length >= 6 && !isWin) {
     onLose();
   }
+    return false;
 }
 
 export function onWin(

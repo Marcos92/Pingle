@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Guess } from "../types/guess";
 
 export interface GuessEntryProps {
@@ -5,22 +6,49 @@ export interface GuessEntryProps {
 }
 
 export default function GuessEntry({ guess }: GuessEntryProps) {
+  const [displayedGuess, setDisplayedGuess] = useState<Guess | undefined>(undefined);
+  const [fade, setFade] = useState(false);
+  const prevGuess = useRef<Guess | undefined>(undefined);
+
+  useEffect(() => {
+    if (prevGuess.current == null && guess != null) {
+      setFade(true);
+      const timeout = setTimeout(() => {
+        setDisplayedGuess(guess);
+        setFade(false);
+      }, 250);
+      return () => clearTimeout(timeout);
+    }
+    setDisplayedGuess(guess);
+    setFade(false);
+    prevGuess.current = guess;
+  }, [guess]);
+
+  const isEmpty = displayedGuess == null;
+
   return (
-    <>
-      {guess == null ? (
+    <div
+      className={`guess-entry guess-fade${fade ? " guess-fade-hidden" : ""}`}
+      style={{ transition: "opacity 0.25s" }}
+    >
+      {isEmpty ? (
         <div className="guess-entry-empty"></div>
       ) : (
-        <div className="guess-entry">
+        <>
           <div className="price">
-            {typeof guess?.price === "number"
-              ? guess.price.toFixed(2) + "€"
+            {typeof displayedGuess.price === "number"
+              ? displayedGuess.price.toFixed(2) + "€"
               : "--"}
           </div>
-          <div className={`hint ${guess?.closeness}`}>
-            {guess?.direction === 1 ? "↑" : guess?.direction === -1 ? "↓" : "✔"}
+          <div className={`hint ${displayedGuess.closeness}`}>
+            {displayedGuess.direction === 1
+              ? "↑"
+              : displayedGuess.direction === -1
+              ? "↓"
+              : "✔"}
           </div>
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 }
