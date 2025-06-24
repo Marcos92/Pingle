@@ -160,16 +160,19 @@ input:-moz-placeholder {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
   width: 90%;
-  flex-shrink: 1;
+  height: 17.5%;
+  flex-shrink: 0;
+  overflow: hidden;
+  text-align: center;
 }
 
 .product-name h1 {
-  font-size: 20px;
+  font-size: clamp(10px, 5vw, 20px);
   font-weight: bold;
-  line-height: 25px;
+  line-height: 1;
   text-align: center;
+  width: 100%;
 }
 
 .game-info {
@@ -215,6 +218,10 @@ input:-moz-placeholder {
   justify-content: center;
   font-weight: bold;
   height: 100%;
+  line-height: 1.2;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 16px;
 }
 
 .guess-entry-empty {
@@ -226,8 +233,11 @@ input:-moz-placeholder {
   width: 75%;
 }
 
-.hint {
+.guess-entry .hint {
   width: 25%;
+}
+
+.hint {
   font-family: "M PLUS Rounded 1c", sans-serif;
   font-size: 22px;
 }
@@ -440,7 +450,7 @@ input:-moz-placeholder {
   gap: 20px;
   font-size: 25px;
   color: white;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .bottom-bar button:hover {
@@ -449,7 +459,7 @@ input:-moz-placeholder {
 }
 
 .bottom-bar .credits {
+  display: flex;
   text-align: center;
   line-height: 10px;
-  margin-bottom: 10px;
 }
