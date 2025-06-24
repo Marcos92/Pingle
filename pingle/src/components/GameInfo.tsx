@@ -12,10 +12,10 @@ export default function GameInfo({
   return (
     <div className="game-info">
       {!hasWon && guessNumber < 6 && `Tentativa ${guessNumber + 1} de 6`}
-      {hasWon && `Ganhou! O preço certo é ${productPrice}€`}
+      {hasWon && `Ganhaste! O preço certo é ${productPrice}€`}
       {!hasWon &&
         guessNumber === 6 &&
-        `Perdeu! O preço certo era ${productPrice}€`}
+        `Perdeste! O preço certo era ${productPrice}€`}
     </div>
   );
 }

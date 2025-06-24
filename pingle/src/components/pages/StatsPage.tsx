@@ -1,13 +1,17 @@
+import { UserStats } from "../../types/userStats";
+
 export interface StatsPageProps {
-  numGames: 0;
-  numWins: 0;
-  winsPerGuess: [0, 0, 0, 0, 0, 0];
-  currentStreak: 0;
-  maxStreak: 0;
+  userStats: UserStats;
 }
 
-export default function StatsPage(props: StatsPageProps) {
-  const { numGames, numWins, winsPerGuess, currentStreak, maxStreak } = props;
+export default function StatsPage({ userStats }: StatsPageProps) {
+  const {
+    numGames = 0,
+    numWins = 0,
+    winsPerGuess = [],
+    currentStreak = 0,
+    maxStreak = 0,
+  } = userStats || {};
   const winRate = numGames > 0 ? Math.round((numWins / numGames) * 100) : 0;
 
   return (

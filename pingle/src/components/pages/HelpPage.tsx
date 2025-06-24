@@ -7,7 +7,7 @@ export default function HelpPage() {
       <div className="break"></div>
       <br />
       <p>
-        A seta para cima indica que o preço certo é maior que a tua sugestão. Se
+        A seta para cima indica que o preço certo é maior do que a tua sugestão. Se
         estiver para baixo, quer dizer que é menor.
       </p>
       <p>
@@ -30,12 +30,12 @@ export default function HelpPage() {
       <div className="break"></div>
       <br />
       <p>
-        Podem acompanhar o meu trabalho{" "}
+        Podes acompanhar o meu trabalho{" "}
         <a href="https://marcosmakesgames.com/">aqui</a>, e contribuir com
         doações <a href="https://ko-fi.com/marcosrodrigues92">aqui</a>.
       </p>
       <p>
-        Enviem as vossas sugestões para <a href="mailto:pingle@pingle.pt">aqui</a>.
+        Envia as tuas sugestões para <a href="mailto:pingle@pingle.pt">aqui</a>.
       </p>
       <br />
       <div className="break"></div>

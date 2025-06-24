@@ -1,4 +1,4 @@
-import { Guess } from "../guess";
+import { Guess } from "../types/guess";
 import GuessEntry from "./GuessEntry";
 
 export interface GuessContainerProps {
