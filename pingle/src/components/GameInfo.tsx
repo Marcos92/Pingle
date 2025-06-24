@@ -11,6 +11,10 @@ export default function GameInfo({
   guessNumber,
   productPrice,
 }: GameInfoProps) {
+  if (productPrice === 0) {
+    return <div className="game-info"> </div>;
+  }
+
   return (
     <div className="game-info">
       {!hasWon && guessNumber < 6 && `Tentativa ${guessNumber + 1} de 6`}

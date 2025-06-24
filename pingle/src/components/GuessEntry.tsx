@@ -10,20 +10,41 @@ export default function GuessEntry({ guess }: GuessEntryProps) {
     undefined
   );
   const [fade, setFade] = useState(false);
+
   const hasAnimated = useRef(false);
+  const isFirstRender = useRef(true);
+  const prevGuess = useRef<Guess | undefined>(undefined);
 
   useEffect(() => {
-    if (guess != null && !hasAnimated.current) {
+    // On initial mount: set guess immediately, no animation
+    if (isFirstRender.current) {
+      setDisplayedGuess(guess);
+      setFade(false);
+      isFirstRender.current = false;
+      prevGuess.current = guess;
+      return;
+    }
+
+    // After mount, only animate if guess changed AND it's a new defined guess (different from previous)
+    const guessChanged =
+      guess != null &&
+      (prevGuess.current == null || prevGuess.current !== guess);
+
+    if (guessChanged && !hasAnimated.current) {
       hasAnimated.current = true;
       setFade(true);
       const timeout = setTimeout(() => {
         setDisplayedGuess(guess);
         setFade(false);
       }, 250);
+      prevGuess.current = guess;
       return () => clearTimeout(timeout);
+    } else {
+      // No animation: just update displayedGuess
+      setDisplayedGuess(guess);
+      setFade(false);
+      prevGuess.current = guess;
     }
-    setDisplayedGuess(guess);
-    setFade(false);
   }, [guess]);
 
   const isEmpty = displayedGuess == null;
