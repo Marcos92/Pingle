@@ -48,7 +48,7 @@ export default function StatsPage({ userStats }: StatsPageProps) {
             <div
               className="bar-fill"
               style={{
-                width: numGames > 0 ? `${(count / numWins) * 100}%` : "0%",
+                width: numWins > 0 ? `${(count / numWins) * 100}%` : "0%",
               }}
             >
               {count > 0 && <span className="bar-value">{count}</span>}
