@@ -4,7 +4,7 @@ type InputBarProps = {
   checkGuess: (guess: number) => void;
 };
 
-const DEFAULT_PLACEHOLDER = "Insere o teu palpite...";
+const DEFAULT_PLACEHOLDER = "O preço certo é...";
 const INVALID_PLACEHOLDER = "Resposta inválida!";
 
 export default function InputBar({ checkGuess }: InputBarProps) {

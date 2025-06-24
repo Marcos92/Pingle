@@ -8,6 +8,7 @@ export default function StatsPage({ userStats }: StatsPageProps) {
   const {
     numGames = 0,
     numWins = 0,
+    perfectWins = 0,
     winsPerGuess = [],
     currentStreak = 0,
     maxStreak = 0,
@@ -25,6 +26,10 @@ export default function StatsPage({ userStats }: StatsPageProps) {
         <div className="stat-item">
           <span className="stat-label">Vitórias</span>
           <span className="stat-value">{numWins}</span>
+        </div>
+        <div className="stat-item">
+          <span className="stat-label">Vitórias perfeitas</span>
+          <span className="stat-value">{perfectWins}</span>
         </div>
         <div className="stat-item">
           <span className="stat-label">Taxa de vitórias</span>

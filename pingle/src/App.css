@@ -230,7 +230,8 @@ input:-moz-placeholder {
   font-size: 22px;
 }
 
-.hint.win {
+.hint.win,
+.hint.perfect {
   background-color: #218c29;
 }
 
@@ -240,6 +241,10 @@ input:-moz-placeholder {
 
 .hint.far {
   background-color: #b22222;
+}
+
+.hint.perfect {
+  background-color: hsl(215, 75%, 50%);
 }
 
 .input-container {
@@ -332,7 +337,7 @@ input:-moz-placeholder {
 .stats h2 {
   font-size: 20px;
   font-weight: bold;
-  margin: 10px 0;
+  margin: 5px 0;
   text-align: center;
   justify-content: center;
   display: flex;
@@ -344,7 +349,15 @@ input:-moz-placeholder {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 50%;
+}
+
+.stats .stats-container {
+  
+  height: 55%;
+}
+
+.stats .stats-distribution {
+  height: 45%;
 }
 
 .stats .stat-item {
@@ -352,12 +365,12 @@ input:-moz-placeholder {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 15px;
+  font-size: 14px;
 
   border-radius: 10px;
   background-color: var(--green-primary);
-  width: 75%;
-  height: 15%;
+  width: 80%;
+  height: 13%;
   margin: 5px;
 
   box-sizing: border-box;
@@ -369,7 +382,7 @@ input:-moz-placeholder {
 
 .stats .stat-item .stat-label {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .stats .stats-distribution {

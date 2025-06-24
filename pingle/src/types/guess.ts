@@ -1,6 +1,6 @@
 export class Guess {
   price: number;
-  public closeness: 'near' | 'far' | 'win';
+  public closeness: 'near' | 'far' | 'win' | 'perfect';
   direction: 1 | -1 | 0;
 
   constructor(

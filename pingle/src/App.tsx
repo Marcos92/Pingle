@@ -44,7 +44,8 @@ function App() {
       product,
       gameState,
       updateGameState,
-      (guessCount: number) => onWin(guessCount, userStats, updateUserStats),
+      (guessCount: number, isPerfect: boolean) =>
+        onWin(guessCount, isPerfect, userStats, updateUserStats),
       () => onLose(userStats, updateUserStats)
     );
   }

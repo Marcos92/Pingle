@@ -1,6 +1,7 @@
 export class UserStats {
   numGames: number;
   numWins: number;
+  perfectWins: number;
   winsPerGuess: number[];
   currentStreak: number;
   maxStreak: number;
@@ -9,6 +10,7 @@ export class UserStats {
   constructor(
     numGames = 0,
     numWins = 0,
+    perfectWins = 0,
     winsPerGuess = [0, 0, 0, 0, 0, 0],
     currentStreak = 0,
     maxStreak = 0,
@@ -16,6 +18,7 @@ export class UserStats {
   ) {
     this.numGames = numGames;
     this.numWins = numWins;
+    this.perfectWins = perfectWins;
     this.winsPerGuess = winsPerGuess;
     this.currentStreak = currentStreak;
     this.maxStreak = maxStreak;
@@ -26,6 +29,7 @@ export class UserStats {
     return new UserStats(
       obj.numGames ?? 0,
       obj.numWins ?? 0,
+      obj.perfectWins ?? 0,
       obj.winsPerGuess ?? [0, 0, 0, 0, 0, 0],
       obj.currentStreak ?? 0,
       obj.maxStreak ?? 0,

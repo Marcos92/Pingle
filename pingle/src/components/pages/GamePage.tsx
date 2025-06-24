@@ -42,6 +42,7 @@ export default function GamePage({
       />
       <GameInfo
         hasWon={gameState.hasWon}
+        isPerfect={gameState.isPerfect}
         guessNumber={gameState.guesses.length}
         productPrice={product.price}
       />

@@ -55,7 +55,7 @@ export function checkGuess(
   product: Product,
   gameState: GameState,
   updateGameState: (state: GameState) => void,
-  onWin: (guessCount: number) => void,
+  onWin: (guessCount: number, isPerfect:boolean) => void,
   onLose: () => void
 ) {
   const currentGuess: Guess = {
@@ -71,6 +71,9 @@ export function checkGuess(
     currentGuess.closeness = "win";
     currentGuess.direction = 0;
     isWin = true;
+    if(amountAway === 0) {
+      currentGuess.closeness = "perfect";
+    }
   } else {
     if (amountAway < 1.0) {
       currentGuess.closeness = "near";
@@ -89,11 +92,12 @@ export function checkGuess(
     ...gameState,
     guesses: newGuesses,
     hasWon: isWin,
+    isPerfect: isWin && currentGuess.closeness === "perfect",
   };
   updateGameState(updatedState);
 
   if (isWin) {
-    onWin(newGuesses.length);
+    onWin(newGuesses.length, updatedState.isPerfect);
     return true;
   } else if (newGuesses.length >= 6 && !isWin) {
     onLose();
@@ -103,11 +107,15 @@ export function checkGuess(
 
 export function onWin(
   guessCount: number,
+  isPerfect: boolean,
   userStats: UserStats,
   updateUserStats: (stats: UserStats) => void
 ) {
   const updatedStats = { ...userStats };
   updatedStats.numWins++;
+  if(isPerfect) {
+    updatedStats.perfectWins++;
+  }
   updatedStats.currentStreak++;
   updatedStats.winsPerGuess[guessCount - 1]++;
   if (updatedStats.currentStreak > updatedStats.maxStreak) {
