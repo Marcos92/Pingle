@@ -3,12 +3,13 @@ export default function HelpPage() {
     <div className="help">
       <p>Adivinha o preço certo em seis tentativas.</p>
       <p>Cada tentativa incorrecta vai ajudar-te a encontrar o preço certo.</p>
+      <p>Todos os dias há um produto novo!</p>
       <br />
       <div className="break"></div>
       <br />
       <p>
-        A seta para cima indica que o preço certo é maior do que a tua sugestão. Se
-        estiver para baixo, quer dizer que é menor.
+        A seta para cima indica que o preço certo é maior do que a tua sugestão.
+        Se estiver para baixo, quer dizer que é menor.
       </p>
       <p>
         Se a ajuda estiver a vermelho quer dizer que estás a mais de um euro do
@@ -19,8 +20,8 @@ export default function HelpPage() {
         <div className="hint far">↑</div> <div className="hint near">↓</div>
       </div>
       <p>
-        Se a tua sugestão estiver a menos de 10 cêntimos do preço certo, ganhas o
-        jogo!
+        Se a tua sugestão estiver a menos de 10 cêntimos do preço certo, ganhas
+        o jogo!
       </p>
 
       <div className="hint-container">
