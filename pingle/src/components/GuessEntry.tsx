@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Guess } from "../types/guess";
+import { Checkmark, DownArrow, UpArrow } from "./icons/Icons";
 
 export interface GuessEntryProps {
   guess: Guess | undefined;
@@ -64,11 +65,13 @@ export default function GuessEntry({ guess }: GuessEntryProps) {
               : "--"}
           </div>
           <div className={`hint ${displayedGuess.closeness}`}>
-            {displayedGuess.direction === 1
-              ? "↑"
-              : displayedGuess.direction === -1
-              ? "↓"
-              : "✔"}
+            {displayedGuess.direction === 1 ? (
+              <UpArrow />
+            ) : displayedGuess.direction === -1 ? (
+              <DownArrow />
+            ) : (
+              <Checkmark />
+            )}
           </div>
         </>
       )}

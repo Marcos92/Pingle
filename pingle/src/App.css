@@ -236,11 +236,6 @@ input:-moz-placeholder {
 
 .hint {
   width: 25%;
-  font-family: "M PLUS Rounded 1c", "Jost", sans-serif !important;
-  font-size: 2.5vh;
-  color: white !important;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .hint.win,
@@ -328,16 +323,16 @@ input:-moz-placeholder {
   justify-content: center;
   align-items: center;
   height: 5vh;
-  margin: 1vh 0;
+  margin: 1.5vh 0;
 }
 
 .help .hint {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
-  line-height: 4vh;
   text-align: center;
+  height: 4vh;
+  border-radius: 10px;
 }
 
 .stats h2 {

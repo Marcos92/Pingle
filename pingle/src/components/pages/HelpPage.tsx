@@ -1,3 +1,5 @@
+import { Checkmark, DownArrow, UpArrow } from "../icons/Icons";
+
 export default function HelpPage() {
   return (
     <div className="help">
@@ -17,7 +19,12 @@ export default function HelpPage() {
         certo.
       </p>
       <div className="hint-container">
-        <div className="hint far">↑</div> <div className="hint near">↓</div>
+        <div className="hint far">
+          <UpArrow />
+        </div>{" "}
+        <div className="hint near">
+          <DownArrow />
+        </div>
       </div>
       <p>
         Se a tua sugestão estiver a menos de 10 cêntimos do preço certo, ganhas
@@ -25,7 +32,9 @@ export default function HelpPage() {
       </p>
 
       <div className="hint-container">
-        <div className="hint win">✔</div>
+        <div className="hint win">
+          <Checkmark />
+        </div>
       </div>
       <br />
       <div className="break"></div>
