@@ -15,7 +15,6 @@ import {
   checkGuess,
   onWin,
   onLose,
-  share,
 } from "./utils/gameUtils";
 
 function App() {
