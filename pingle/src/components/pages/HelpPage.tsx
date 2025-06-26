@@ -45,7 +45,8 @@ export default function HelpPage() {
         doações <a href="https://ko-fi.com/marcosrodrigues92">aqui</a>.
       </p>
       <p>
-        Envia as tuas sugestões para <a href="mailto:pingle@pingle.pt">aqui</a>.
+        Envia as tuas sugestões para{" "}
+        <a href="mailto:pingle.pt@gmail.com">aqui</a>.
       </p>
       <br />
       <div className="break"></div>
