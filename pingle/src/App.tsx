@@ -50,10 +50,6 @@ function App() {
     );
   }
 
-  function handleShare() {
-    share(gameState, navigator);
-  }
-
   const [fade, setFade] = useState(false);
   const [currentPage, setCurrentPage] = useState<"game" | "help" | "stats">(
     "game"
@@ -80,7 +76,6 @@ function App() {
       <GamePage
         product={product}
         gameState={gameState}
-        handleShare={handleShare}
         handleCheckGuess={handleCheckGuess}
       />
     );

@@ -1,14 +1,16 @@
 import { useState } from "react";
+import { share } from "../utils/gameUtils";
+import { GameState } from "../types/gameState";
 
 type ShareButtonProps = {
-  share: () => void;
+  gameState : GameState;
 };
 
-export default function ShareButton({ share }: ShareButtonProps) {
+export default function ShareButton({ gameState }: ShareButtonProps) {
   const [copied, setCopied] = useState(false);
 
   function handleInput() {
-    share();
+    share(gameState, navigator);
     setCopied(true);
     setTimeout(() => setCopied(false), 1000);
   }

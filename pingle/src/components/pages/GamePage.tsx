@@ -10,14 +10,12 @@ import type { GameState } from "../../types/gameState";
 interface GamePageProps {
   product: Product;
   gameState: GameState;
-  handleShare: () => void;
-  handleCheckGuess: (value: number) => boolean; // Now returns true/false
+  handleCheckGuess: (value: number) => boolean;
 }
 
 export default function GamePage({
   product,
   gameState,
-  handleShare,
   handleCheckGuess,
 }: GamePageProps) {
   const [shake, setShake] = useState(false);
@@ -48,7 +46,7 @@ export default function GamePage({
       />
       <GuessContainer guesses={gameState.guesses} />
       {showShareButton ? (
-        <ShareButton share={handleShare} />
+        <ShareButton gameState={gameState} />
       ) : (
         <InputBar checkGuess={onCheckGuess} />
       )}

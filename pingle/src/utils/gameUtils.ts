@@ -148,7 +148,7 @@ export function share(
 
   (gameState.guesses as Guess[]).forEach((guess: Guess) => {
     output +=
-      (guess.direction === 1 ? "⬆️" : guess.direction === -1 ? "⬇️" : "✅") +
+      (guess.direction === 1 ? "⬆️" : guess.direction === -1 ? "⬇️" :  (gameState.isPerfect ? "☑✨" : "✅")) +
       (guess.closeness === "far"
         ? "🟥"
         : guess.closeness === "near"
