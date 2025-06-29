@@ -132,6 +132,12 @@ export function onLose(
   updateUserStats(updatedStats);
 }
 
+export const isMobile =
+    typeof navigator !== "undefined" &&
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+
 export function share(
   gameState: GameState,
   navigator: Navigator
@@ -156,12 +162,6 @@ export function share(
         : "") +
       "\n";
   });
-
-  const isMobile =
-    typeof navigator !== "undefined" &&
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    );
 
   if (isMobile && typeof (navigator as any).canShare === "function") {
     (navigator as any)
