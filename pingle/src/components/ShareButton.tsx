@@ -11,7 +11,7 @@ export default function ShareButton({ gameState }: ShareButtonProps) {
 
   function handleInput() {
     share(gameState, navigator);
-    if (!isMobile) {
+    if (!isMobile()) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1000);
     }

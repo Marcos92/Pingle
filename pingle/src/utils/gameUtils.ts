@@ -132,11 +132,13 @@ export function onLose(
   updateUserStats(updatedStats);
 }
 
-export const isMobile =
-    typeof navigator !== "undefined" &&
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    );
+export const isMobile = (): boolean => {
+  if (typeof navigator === "undefined") return false;
+
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+};
 
 export function share(
   gameState: GameState,
@@ -163,7 +165,7 @@ export function share(
       "\n";
   });
 
-  if (isMobile && typeof (navigator as any).canShare === "function") {
+  if (isMobile() && typeof (navigator as any).canShare === "function") {
     (navigator as any)
       .share({
         title: "PINGLE",
