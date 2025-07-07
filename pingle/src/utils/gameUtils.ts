@@ -65,7 +65,7 @@ export function checkGuess(
   };
 
   let isWin = false;
-  const amountAway = Math.abs(product.price - value);
+  const amountAway = parseFloat(Math.abs(product.price - value).toFixed(2));
 
   if (amountAway < 0.1) {
     currentGuess.closeness = "win";
