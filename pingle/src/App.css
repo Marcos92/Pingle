@@ -168,7 +168,7 @@ input:-moz-placeholder {
 }
 
 .product-name h1 {
-  font-size: clamp(16px, 1.5vw, 22px);
+  font-size: clamp(15px, 1vw, 20px);
   font-weight: bold;
   text-align: center;
   width: 100%;
