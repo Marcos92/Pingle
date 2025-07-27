@@ -19,6 +19,7 @@ export function fetchGameData(
       const index = gameIndex % json.length;
       const product: Product = {
         name: json[index].name,
+        quantity: json[index].quantity,
         image: json[index].image,
         price: json[index].price,
       };

@@ -20,6 +20,7 @@ import {
 function App() {
   const [product, setProduct] = useState<Product>({
     name: "",
+    quantity: "",
     image: "",
     price: 0,
   });

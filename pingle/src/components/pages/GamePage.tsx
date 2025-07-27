@@ -35,6 +35,7 @@ export default function GamePage({
     <div className="game">
       <ProductDisplay
         name={product.name}
+        quantity={product.quantity}
         image={product.image}
         className={shake ? "shake" : ""}
       />
