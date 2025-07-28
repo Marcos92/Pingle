@@ -19,7 +19,9 @@ export default function ProductDisplay({
       <div className="product-name">
         <h1>
           {name}
-          <span style={{ whiteSpace: "nowrap" }}>{` (${quantity})`}</span>
+          {quantity && quantity.trim() !== "" && (
+            <span style={{ whiteSpace: "nowrap" }}>{` (${quantity})`}</span>
+          )}
         </h1>
       </div>
     </div>
